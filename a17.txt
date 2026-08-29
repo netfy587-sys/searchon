@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Art of Waiting — A Bonsai Read</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#17140f;
+    --charcoal-deep:#100e0a;
+    --panel:#1f1b14;
+    --moss:#5c7a52;
+    --amber:#c98a3f;
+    --clay:#a85d3a;
+    --cream:#efe6d6;
+    --muted:#a89a86;
+    --line:rgba(239,230,214,0.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 650px at 10% -6%, rgba(201,138,63,0.10), transparent 60%),
+      radial-gradient(ellipse 800px 600px at 92% 12%, rgba(92,122,82,0.10), transparent 55%),
+      radial-gradient(ellipse 1000px 800px at 50% 55%, rgba(168,93,58,0.05), transparent 60%),
+      radial-gradient(ellipse 1000px 900px at 25% 100%, rgba(92,122,82,0.06), transparent 55%),
+      linear-gradient(180deg, #161209 0%, #191509 45%, #15120c 100%);
+    background-attachment:fixed;
+    color:var(--cream);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  .serif{ font-family:'Noto Serif',serif; }
+  ::selection{ background:var(--amber); color:var(--charcoal-deep); }
+
+  .ring-line{ position:fixed; top:0; left:36px; height:100%; width:2px; z-index:0; opacity:0.4;
+    background:repeating-linear-gradient(to bottom, var(--amber) 0 3px, transparent 3px 13px); }
+
+  header{ position:sticky; top:0; z-index:50; display:flex; justify-content:space-between; align-items:center;
+    padding:26px 6vw; background:rgba(23,20,15,0.88); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:'Noto Serif',serif; font-weight:600; font-size:21px; color:var(--cream); }
+  .brand .dot{ width:9px;height:9px;border-radius:50%; background:var(--amber); }
+  nav a{ color:var(--muted); text-decoration:none; font-size:12px; font-weight:600; text-transform:uppercase;
+    letter-spacing:1.3px; margin-left:32px; }
+  nav a:hover{ color:var(--amber); }
+
+  section{ position:relative; z-index:1; padding:100px 7vw 100px 8vw; }
+
+  .hero{ min-height:88vh; display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center; padding-top:60px; }
+  .eyebrow{ display:inline-flex; align-items:center; gap:10px; font-family:'JetBrains Mono',monospace; font-size:11px;
+    color:var(--amber); border:1px solid rgba(201,138,63,0.3); padding:6px 16px; border-radius:100px; width:fit-content; margin-bottom:28px; }
+  .eyebrow::before{ content:""; width:6px;height:6px;border-radius:50%; background:var(--moss); }
+  h1.headline{ font-family:'Noto Serif',serif; font-weight:500; font-style:italic; font-size:clamp(38px,5.2vw,72px);
+    line-height:1.1; color:var(--cream); }
+  h1.headline .accent{ color:var(--amber); font-style:normal; }
+  .hero p.lede{ max-width:540px; margin-top:26px; font-size:17.5px; line-height:1.8; color:var(--muted); }
+  .hero-note{ margin-top:36px; padding-top:22px; border-top:1px solid var(--line); max-width:520px; color:var(--muted); font-size:14px; line-height:1.85; }
+  .hero-note strong{ color:var(--amber); font-weight:600; }
+
+  .photo-frame{ position:relative; border:1px solid var(--line); border-radius:16px; overflow:hidden;
+    background:var(--panel); aspect-ratio:1/1.05; box-shadow:0 30px 70px -28px rgba(0,0,0,0.6); }
+  .photo-frame img{ width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.05) contrast(1.05); }
+  .photo-frame .tint{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(16,14,10,0.05) 0%, rgba(16,14,10,0.55) 100%); }
+  .photo-frame .cap{ position:absolute; left:18px; bottom:16px; font-family:'JetBrains Mono',monospace; font-size:10.5px;
+    color:var(--cream); letter-spacing:1.5px; text-transform:uppercase; opacity:0.9; }
+
+  .kicker{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--clay); text-transform:uppercase; letter-spacing:2px; margin-bottom:18px; }
+  h2.section-title{ font-family:'Noto Serif',serif; font-weight:500; font-size:clamp(30px,3.8vw,50px); max-width:760px; line-height:1.12; color:var(--cream); }
+  .section-desc{ max-width:620px; color:var(--muted); margin-top:20px; font-size:16px; line-height:1.8; }
+
+  .essay-row{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:60px; align-items:center; margin-top:56px; }
+  .essay-row.reverse{ grid-template-columns:1.15fr 0.85fr; }
+  .essay-row.reverse .photo-frame{ order:2; }
+  .essay-row .photo-frame{ aspect-ratio:4/3.2; }
+  .essay-text h3{ font-family:'Noto Serif',serif; font-weight:600; font-size:27px; margin-bottom:14px; color:var(--amber); }
+  .essay-text p{ color:var(--muted); font-size:15.5px; line-height:1.85; margin-bottom:14px; }
+  .essay-text p:last-child{ margin-bottom:0; }
+
+  .pull-quote{ max-width:640px; margin:40px 0 0; padding-left:26px; border-left:3px solid var(--moss);
+    font-family:'Noto Serif',serif; font-style:italic; font-size:21px; line-height:1.6; color:var(--cream); }
+
+  .disciplines{ margin-top:56px; display:flex; flex-direction:column; }
+  .disc-row{ display:grid; grid-template-columns:96px 150px 1fr; gap:28px; align-items:center; padding:32px 0; border-top:1px solid var(--line); }
+  .disc-row:last-child{ border-bottom:1px solid var(--line); }
+  .disc-icon{ width:96px; height:96px; border-radius:12px; background:var(--panel); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; }
+  .disc-icon svg{ width:52px; height:52px; }
+  .disc-label{ font-family:'Noto Serif',serif; font-style:italic; font-size:20px; color:var(--clay); }
+  .disc-body h4{ font-weight:700; font-size:16.5px; margin-bottom:7px; color:var(--cream); }
+  .disc-body p{ color:var(--muted); font-size:14.5px; line-height:1.75; }
+
+  .gallery{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:56px; }
+  .gallery-card{ background:var(--panel); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .gallery-card .photo-frame{ border:none; border-radius:0; aspect-ratio:4/3; }
+  .gallery-card .body{ padding:26px 24px 30px; }
+  .gallery-card h4{ font-family:'Noto Serif',serif; font-size:19px; margin-bottom:10px; color:var(--amber); }
+  .gallery-card p{ color:var(--muted); font-size:14px; line-height:1.75; }
+
+  .quote-band{ text-align:center; padding:130px 8vw; }
+  .quote-band blockquote{ font-family:'Noto Serif',serif; font-weight:500; font-style:italic; font-size:clamp(24px,3.4vw,42px);
+    line-height:1.4; max-width:900px; margin:0 auto; color:var(--cream); }
+  .quote-band blockquote .hl{ color:var(--amber); font-style:normal; }
+  .quote-band cite{ display:block; margin-top:24px; color:var(--muted); font-size:12px; letter-spacing:1.5px; text-transform:uppercase; }
+
+  .closing{ text-align:center; border-top:1px solid var(--line); }
+  .closing h2{ font-family:'Noto Serif',serif; font-weight:500; font-style:italic; font-size:clamp(32px,5vw,58px); color:var(--cream); }
+  .closing p{ color:var(--muted); margin:20px auto 0; max-width:560px; font-size:16px; line-height:1.85; }
+  footer{ border-top:1px solid var(--line); padding:34px 6vw; display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:13px; }
+  footer .fbrand{ font-family:'Noto Serif',serif; font-weight:600; font-size:17px; color:var(--cream); }
+
+  @media (max-width:900px){
+    .hero{ grid-template-columns:1fr; }
+    .hero .photo-frame{ order:-1; max-width:420px; margin:0 auto; }
+    .essay-row, .essay-row.reverse{ grid-template-columns:1fr; }
+    .essay-row.reverse .photo-frame{ order:0; }
+    .disc-row{ grid-template-columns:1fr; text-align:left; }
+    .gallery{ grid-template-columns:1fr; }
+    .ring-line{ display:none; }
+    nav{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ring-line"></div>
+
+<header>
+  <div class="brand"><span class="dot"></span> The Art of Waiting</div>
+  <nav>
+    <a href="#history">A History</a>
+    <a href="#discipline">The Practice</a>
+    <a href="#styles">Styles</a>
+    <a href="#why">Why It Endures</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">BONSAI — A LONG READ</div>
+    <h1 class="headline">A tree,<br>shaped by <span class="accent">decades</span>,<br>not by hands.</h1>
+    <p class="lede">A bonsai is never really finished — it is only ever in progress, sometimes for longer than the person tending it will live. This is an unhurried read about the strange, patient art of growing a full-sized tree in miniature, one small decision at a time.</p>
+    <div class="hero-note">
+      Four parts follow — <strong>where the practice began</strong>, <strong>the discipline behind it</strong>, <strong>a few classic styles</strong>, and <strong>why it still holds people's attention</strong>.
+    </div>
+  </div>
+  <div class="photo-frame">
+    <img src="https://images.unsplash.com/photo-1561641250-c06551cf3b02?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="A carefully shaped bonsai tree with layered green foliage" loading="lazy">
+    <div class="tint"></div>
+    <div class="cap">Decades In The Making</div>
+  </div>
+</section>
+
+<section id="history">
+  <div class="kicker">// 01 A HISTORY IN MINIATURE</div>
+  <h2 class="section-title">Older than most of the countries that now practise it.</h2>
+  <p class="section-desc">Long before it became a familiar image of Japanese aesthetics, the idea of a living tree kept deliberately small had already travelled across a continent and evolved into something entirely its own.</p>
+
+  <div class="essay-row">
+    <div class="photo-frame">
+      <img src="https://images.unsplash.com/photo-1470364693235-a4fe27c60914?fm=jpg&q=80&w=1000&auto=format&fit=crop" alt="A shallow, focused photo of small bonsai plants in pots" loading="lazy">
+      <div class="tint"></div>
+      <div class="cap">An Old Practice</div>
+    </div>
+    <div class="essay-text">
+      <h3>Born in China, refined in Japan</h3>
+      <p><span class="drop">The earliest known form</span> of this art, called penjing, emerged in China well over a thousand years ago — miniature landscapes built from trees, rock, and moss, meant to capture an entire mountain scene within a single tray.</p>
+      <p>When the practice reached Japan, centuries later, it was gradually stripped down to something simpler and more focused: a single tree, in a single pot, its beauty resting almost entirely on restraint. That refinement is where the word "bonsai" itself comes from — quite literally, "planted in a container."</p>
+      <p>What survived that journey across centuries and cultures wasn't a fixed set of rules, but a shared instinct: that a tree, deliberately limited, could somehow say more about nature than a whole forest left to grow freely.</p>
+    </div>
+  </div>
+
+  <div class="essay-row reverse">
+    <div class="photo-frame">
+      <img src="https://images.unsplash.com/photo-1526397751294-331021109fbd?fm=jpg&q=80&w=1000&auto=format&fit=crop" alt="A green leafed bonsai plant resting in a brown pot" loading="lazy">
+      <div class="tint"></div>
+      <div class="cap">Passed Down</div>
+    </div>
+    <div class="essay-text">
+      <h3>A tree that outlives its first owner</h3>
+      <p>Some of the oldest documented bonsai in the world are believed to be several hundred years old, passed down through generations of a single family or temple, each caretaker adding only a few decades of their own shaping to a story that started long before them.</p>
+      <p>That's part of what separates bonsai from almost every other art form. A painter finishes a painting. A bonsai artist simply hands their work forward, incomplete, to whoever tends it next.</p>
+    </div>
+  </div>
+</section>
+
+<section id="discipline">
+  <div class="kicker">// 02 THE PRACTICE</div>
+  <h2 class="section-title">Four quiet disciplines, repeated for years.</h2>
+  <p class="section-desc">There's no single technique that makes a bonsai — it's a handful of small, repeated interventions, spaced out over seasons, each one small enough on its own to seem almost unimportant.</p>
+
+  <div class="disciplines">
+    <div class="disc-row">
+      <div class="disc-icon">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 50 C20 30, 25 15, 30 10 C35 15, 40 30, 40 50" fill="none" stroke="var(--amber)" stroke-width="2.5"/>
+          <path d="M20 30 Q30 25 40 30" stroke="var(--amber)" stroke-width="1.5" fill="none" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="disc-label">Wiring</div>
+      <div class="disc-body">
+        <h4>Guiding a branch, gently, for months</h4>
+        <p>Thin copper or aluminium wire is wound carefully around a branch to bend it, slowly, toward a shape it wouldn't have chosen on its own — removed months later once the wood has learned to hold the new position by itself.</p>
+      </div>
+    </div>
+
+    <div class="disc-row">
+      <div class="disc-icon">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 10 L30 50" stroke="var(--moss)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M20 20 L30 25 M40 20 L30 25 M18 35 L30 38 M42 35 L30 38" stroke="var(--moss)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="disc-label">Pruning</div>
+      <div class="disc-body">
+        <h4>Choosing what the tree doesn't need</h4>
+        <p>Regular, careful cutting keeps the tree small and directs its energy exactly where the artist wants growth to happen — not once, but continually, season after season, for as long as the tree lives.</p>
+      </div>
+    </div>
+
+    <div class="disc-row">
+      <div class="disc-icon">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <rect x="16" y="34" width="28" height="16" rx="2" fill="none" stroke="var(--clay)" stroke-width="2.5"/>
+          <path d="M22 34 L22 24 M30 34 L30 20 M38 34 L38 24" stroke="var(--clay)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="disc-label">Repotting</div>
+      <div class="disc-body">
+        <h4>Trimming roots to keep growth small</h4>
+        <p>Every few years, the tree is lifted from its pot and its root system is carefully trimmed back, a slow, deliberate way of keeping a full-grown species living happily within a container barely larger than a dinner plate.</p>
+      </div>
+    </div>
+
+    <div class="disc-row">
+      <div class="disc-icon">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="18" fill="none" stroke="var(--cream)" stroke-width="2" opacity="0.7"/>
+          <circle cx="30" cy="30" r="4" fill="var(--cream)" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="disc-label">Watching</div>
+      <div class="disc-body">
+        <h4>The discipline that's easiest to skip</h4>
+        <p>Simply observing the tree closely, day after day, is arguably the most important habit of all — noticing a new bud, a slightly dry leaf, a shift in season, long before any tool ever needs to be picked up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="styles">
+  <div class="kicker">// 03 A FEW CLASSIC STYLES</div>
+  <h2 class="section-title">Each shape tells a different story about how a tree survived.</h2>
+  <p class="section-desc">Bonsai styles aren't arbitrary — most are deliberate imitations of how real trees are shaped by real conditions in the wild, compressed into a single pot.</p>
+
+  <div class="gallery">
+    <div class="gallery-card">
+      <div class="photo-frame">
+        <img src="https://images.unsplash.com/photo-1569873175476-10aa45523ab8?fm=jpg&q=80&w=800&auto=format&fit=crop" alt="An orange-hued bonsai tree with a strong trunk" loading="lazy">
+        <div class="tint"></div>
+      </div>
+      <div class="body">
+        <h4>Formal Upright</h4>
+        <p>A single, perfectly straight trunk, tapering evenly toward the top — the shape of a tree that grew in open ground with no wind or obstacle to fight against.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="photo-frame">
+        <img src="https://images.unsplash.com/photo-1611387729672-25583e070328?fm=jpg&q=80&w=800&auto=format&fit=crop" alt="A dramatic dark tree silhouette" loading="lazy">
+        <div class="tint"></div>
+      </div>
+      <div class="body">
+        <h4>Windswept</h4>
+        <p>Every branch trained to lean in the same direction, imitating a tree that spent its whole life bent by a single, unrelenting prevailing wind.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="photo-frame">
+        <img src="https://images.unsplash.com/photo-1467043198406-dc953a3defa0?fm=jpg&q=80&w=800&auto=format&fit=crop" alt="A green plant growing in a dark pot" loading="lazy">
+        <div class="tint"></div>
+      </div>
+      <div class="body">
+        <h4>Cascade</h4>
+        <p>The trunk trained to fall below the base of the pot itself — echoing a tree clinging to a cliff edge, growing downward in search of light.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    No two bonsai of the same style ever look quite the same. The tree remembers every decision its artist ever made.
+  </div>
+</section>
+
+<section id="why">
+  <div class="kicker">// 04 WHY IT ENDURES</div>
+  <h2 class="section-title">Because it refuses to be rushed, in a world that constantly is.</h2>
+
+  <div class="essay-row reverse">
+    <div class="photo-frame">
+      <img src="https://images.unsplash.com/photo-1670100938895-8e274055961b?fm=jpg&q=80&w=1000&auto=format&fit=crop" alt="A small tree carefully potted, catching soft natural light" loading="lazy">
+      <div class="tint"></div>
+      <div class="cap">Still Growing</div>
+    </div>
+    <div class="essay-text">
+      <h3>Practising patience, on purpose</h3>
+      <p>Almost nothing else asks a person to think in decades the way bonsai does. A wired branch might not hold its shape for a full year. A trunk might not thicken to the desired proportion for a decade. Many serious bonsai artists openly accept they'll never see their tree reach the shape they're working toward — that job will belong to whoever inherits it.</p>
+      <p>In an age of same-day delivery and instant everything, that kind of deliberate, generational patience has become almost radical. Sitting with a pair of shears in front of a small tree, making one careful cut and then simply waiting to see how it responds, is a quiet rebellion against the idea that everything worthwhile should happen quickly.</p>
+      <p>That, more than any particular shape or style, is probably the real reason the practice has survived a thousand years and counting. It isn't really about the tree. It's about learning, slowly, how to wait well.</p>
+    </div>
+  </div>
+</section>
+
+<section class="quote-band">
+  <blockquote>"Bonsai is not a <span class="hl">finished product</span>. It is a living thing, always becoming."</blockquote>
+  <cite>— A PRINCIPLE OFTEN REPEATED AMONG BONSAI MASTERS</cite>
+</section>
+
+<section class="closing">
+  <h2>Still being<br>shaped, this season.</h2>
+  <p>Somewhere right now, a small pair of shears is hovering over a single branch, deciding whether this is the year it finally gets cut. Whatever is decided, the tree won't show the result for months. That slowness isn't a flaw in the practice. It is, quite simply, the entire point of it.</p>
+</section>
+
+<footer>
+  <div class="fbrand">The Art of Waiting</div>
+  <div>A slow read on bonsai, patience, and trees shaped by decades.</div>
+</footer>
+
+</body>
+</html>
